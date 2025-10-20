@@ -32,9 +32,26 @@ function toggleMenu() {
   document.getElementById('side-menu').classList.toggle('show');
 }
 
-// Display username on dashboard
+// Handle page load logic
 window.onload = function() {
   const user = localStorage.getItem('loggedInUser');
+  const path = window.location.pathname;
+
+  // If user already logged in and is on index.html → send to dashboard
+  if (user && path.includes('index.html')) {
+    window.location.href = "dashboard.html";
+  }
+
+  // If on dashboard but not logged in → send to login
+  if (!user && path.includes('dashboard.html')) {
+    window.location.href = "index.html";
+  }
+
+  // Display username on dashboard
+  if (user && document.getElementById('user-name')) {
+    document.getElementById('user-name').textContent = user;
+  }
+};  const user = localStorage.getItem('loggedInUser');
   if (document.getElementById('user-name')) {
     if (!user) {
       window.location.href = "index.html";
